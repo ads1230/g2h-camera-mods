@@ -27,10 +27,11 @@ Note that these other languages only existed after a software update, and you us
 # Swap to international servers
 Edit mentions of `lumi.camera.gwagl02` to `lumi.camera.gwag03`
 
-`cd ../
-vi /mnt/config/miio/device.conf
-vi /mnt/config/hostapd.conf
-vi /etc/build.prop`
+`vi /mnt/config/miio/device.conf`
+
+`vi /mnt/config/hostapd.conf`
+
+`vi /etc/build.prop`
 
 # Editing Camera Settings via Telnet
 `vi /mnt/config/flash_config.ini`
