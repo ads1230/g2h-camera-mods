@@ -14,9 +14,9 @@ login via telnet --> `telnet G2H_IPADDRESS` (user: `root`, pass: `password`)
 The camera will reboot when it's done and remove the SD card. Use at your own risk.
 
 # Changing the voice to English
-The default Chinese language was fixed with no way to change it (in FW <2.0.9). Which is fine but when you do certain tasks it would be nice to be able to understand what it was doing.
 
 The audio files are stored in `/etc/ch` which are all in Mandarin. In a later version of the firmware the new audio files appeared (in folders   `en`, `es` and `ru`). There is also German, Italian and French in another partition `/customer/voice`.
+Note: you need atleast FW1.0.9 to enable other languages. Use the Aquara app to update, or copy the files from another device.
 
 ### Fix No1
 Execute the command `set_language en` to change the language to english.
@@ -25,7 +25,6 @@ Edit the language to English (en) in `/mnt/config/factory_config.ini` to retain 
 ### Fix No2
 Using a symbolic link to point each file in `/etc/ch/en/` to the corresponding file in the parent directory is an easy way to change the language to english.
  
-Note that these other languages only existed after a software update, and you use the Aquara app to do the update. So I copied these from one device to another.
 
 # Swap to international servers
 Edit mentions of `lumi.camera.gwagl02` to `lumi.camera.gwag03`
