@@ -9,47 +9,6 @@ echo 1 > /tmp/plock
 # change root password
 echo "root:password" | chpasswd 
 
-# uncomment if you cant join wifi (original doesnt support hidden ssid)
-#
-#if [ ! -f /mnt/config/miio/wifi.conf ] ; then
-#  cat << EOF > /tmp/wificfg
-#country=AU
-#ctrl_interface=DIR=/var/run/wpa_supplicant
-#update_config=1
-#
-#network={
-#    scan_ssid=1
-#    ssid=<HEX ENCODED SSID>
-#    psk=<HEX ENCODED KEY>
-#}
-#
-#EOFF
-#  while `test ! -n /mnt/config/miio/wifi.conf` ; do cp /tmp/wificfg /mnt/config/wpa_supplicant.conf ; sleep 0.3 ; done
-#  exit 0
-## exit here and do manual reboot
-#fi
-
-test -f /etc/normal.xml_save || cp /etc/normal.xml /etc/normal.xml_save && cat << EOF > /etc/normal.xml
-<monitor>
-        <process name="/local/bin/property_service">
-                <arg desc="loglevel option">-i</arg>
-                <arg desc="loglevel 0">/etc/build.prop</arg>
-                <arg desc="data path option">-p</arg>
-                <arg desc="data path">/mnt/config/prop.dat</arg>
-        </process>
-        <process name="/tmp/out/mosquitto">
-                <arg desc="foreground run"></arg>
-        </process>
-        <process name="/tmp/out/camera">
-                <arg desc="bring up by monitor">-M</arg>
-        </process>
-        <process name="/tmp/out/zigbee_agent">
-        <arg desc="bring up by monitor">-f</arg>
-        <arg desc="bring up by monitor">/etc/zigbeeAgent.conf</arg>
-        </process>
-</monitor>
-EOF
-
 test -f /etc/tar_app.sh_save || cp /etc/tar_app.sh /etc/tar_app.sh_save && cat << EOF > /etc/tar_app.sh
 #!/bin/sh
 
@@ -92,6 +51,47 @@ homekit_ntp uk.pool.ntp.org
 EOF
 chmod 755 /etc/init.d/S91telnetd
 
+# uncomment if you cant join wifi (original doesnt support hidden ssid)
+#
+#if [ ! -f /mnt/config/miio/wifi.conf ] ; then
+#  cat << EOF > /tmp/wificfg
+#country=AU
+#ctrl_interface=DIR=/var/run/wpa_supplicant
+#update_config=1
+#
+#network={
+#    scan_ssid=1
+#    ssid=<HEX ENCODED SSID>
+#    psk=<HEX ENCODED KEY>
+#}
+#
+#EOFF
+#  while `test ! -n /mnt/config/miio/wifi.conf` ; do cp /tmp/wificfg /mnt/config/wpa_supplicant.conf ; sleep 0.3 ; done
+#  exit 0
+## exit here and do manual reboot
+#fi
+
+# uncomment to trim down unessential services
+#test -f /etc/normal.xml_save || cp /etc/normal.xml /etc/normal.xml_save && cat << EOF > /etc/normal.xml
+#<monitor>
+#        <process name="/local/bin/property_service">
+#                <arg desc="loglevel option">-i</arg>
+#                <arg desc="loglevel 0">/etc/build.prop</arg>
+#                <arg desc="data path option">-p</arg>
+#                <arg desc="data path">/mnt/config/prop.dat</arg>
+#        </process>
+#        <process name="/tmp/out/mosquitto">
+#                <arg desc="foreground run"></arg>
+#        </process>
+#        <process name="/tmp/out/camera">
+#                <arg desc="bring up by monitor">-M</arg>
+#        </process>
+#        <process name="/tmp/out/zigbee_agent">
+#        <arg desc="bring up by monitor">-f</arg>
+#        <arg desc="bring up by monitor">/etc/zigbeeAgent.conf</arg>
+#        </process>
+#</monitor>
+#EOF
 
 if [ ! -f /etc/patched ] ; then
   echo 1 > /etc/patched
