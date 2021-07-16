@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# check if already running
+test -f /tmp/plock && exit
+
+# create lock file
+echo 1 > /tmp/plock
+
+# change root password
+echo "root:password" | chpasswd 
+
+test -f /etc/tar_app.sh_save && cp /etc/tar_app.sh_save /etc/tar_app.sh && rm -r /etc/tar_app.sh_save
+
+rm -r cp /etc/tar_app.sh_save && cp /etc/tar_app.sh /etc/tar_app.sh_save && rm -r /etc/tar_app.sh_save
+
+test -f /etc/normal.xml_save && cp /etc/normal.xml_save /etc/normal.xml && rm -r /etc/normal.xml_save
+
+if [ ! -f /etc/patched ] ; then
+  echo 1 > /etc/patched
+  reboot
+fi
